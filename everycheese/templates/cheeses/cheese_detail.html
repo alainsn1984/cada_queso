@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Cheeses: {{ cheese.name}}
+{% endblock title %}
+
+{% block content %}
+  <h2>{{ cheese.name }}</h2>
+
+  {% if cheese.firmness %}
+    <p>Firmness: {{ cheese.firmness }}</p>
+  {% endif %}
+  {% if cheese.description %}
+    <p>Description: {{ cheese.description }}</p>
+  {% endif %}
+
+{% endblock content %}
+
