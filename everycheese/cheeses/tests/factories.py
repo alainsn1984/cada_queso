@@ -13,3 +13,4 @@ class CheeseFactory(factory.Factory):
     slug = factory.LazyAttribute(lambda obj: slugify(obj.name))
     description = factory.Faker('paragraph')
     firmness = factory.fuzzy.FuzzyChoice([x[0] for x in Cheese.Firmness.choices])
+    country_of_origin = factory.Faker('country_code')
