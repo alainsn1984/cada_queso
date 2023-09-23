@@ -18,6 +18,14 @@
       <img src="{{ cheese.country_of_origin.flag}}">
     </p>
   {% endif %}
+  <hr/>
+  <h3>Submited by
+    <a href="{% url 'cheeses:detail' cheese.creator.username %}">{{ cheese.creator.username}}</a>
+  </h3>
+
+  {% if cheese.creator.username %}
+   <p> {{ cheese.creator.username}} </p>
+  {% endif %}
 
 {% endblock content %}
 
