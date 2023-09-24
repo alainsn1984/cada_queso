@@ -10,7 +10,8 @@ class CheeseListView(ListView):
 
 class CheeseDetailView(DetailView):
     model = Cheese
-    # template_name = ".html"
+    #queryset = Cheese.objects.all()
+    # template_name = "cheeses/detail.html"
 
 
 class CheeseCreateView(LoginRequiredMixin, CreateView):
