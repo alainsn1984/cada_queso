@@ -13,8 +13,9 @@ from ..views import (
     CheeseCreateView,
     CheeseListView,
     CheeseDetailView,
+    CheeseUpdateView
 )
-from .factories import CheeseFactory
+from .factories import CheeseFactory, cheese
 pytestmark = pytest.mark.django_db
 
 
@@ -52,7 +53,7 @@ def test_cheese_list_contains_2_cheeses(rf):
     request = rf.get(reverse('cheeses:list'))
     response = CheeseListView.as_view()(request)
     assert response.status_code == 200
- 
+
 
 def test_cheese_create_form_valid(rf:RequestFactory, admin_user):
     form_data = {
@@ -67,3 +68,18 @@ def test_cheese_create_form_valid(rf:RequestFactory, admin_user):
     assert cheese.description == 'A salty hard cheese'
     assert cheese.firmness == Cheese.Firmness.HARD
     assert cheese.creator == admin_user
+
+def test_cheese_create_correct_title(rf,admin_user):
+    """Page title for CheeseCreateView should be Add Cheese
+    """
+    request = rf.get(reverse('cheeses:add'))
+    request.user = admin_user
+    response = CheeseCreateView.as_view()(request)
+    assertContains(response, 'Add Cheese')
+
+def test_good_cheese_update_view():
+    cheese = CheeseFactory()
+    view = resolve(f'/cheeses/{cheese.slug}/update/')
+    assert view.func.__name__ == CheeseUpdateView.as_view().__name__
+
+

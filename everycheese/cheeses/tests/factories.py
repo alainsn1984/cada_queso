@@ -1,3 +1,4 @@
+import pytest
 from django.template.defaultfilters import slugify
 from everycheese.users.tests.factories import UserFactory
 
@@ -16,3 +17,7 @@ class CheeseFactory(factory.Factory):
     firmness = factory.fuzzy.FuzzyChoice([x[0] for x in Cheese.Firmness.choices])
     country_of_origin = factory.Faker('country_code')
     creator = factory.SubFactory(UserFactory)
+
+@pytest.fixture
+def cheese():
+    return CheeseFactory()
